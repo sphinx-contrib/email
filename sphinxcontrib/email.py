@@ -10,9 +10,14 @@ from docutils import nodes
 # a BSD license.
 
 import re
-import string
 
-rot_13_trans = string.maketrans(
+try:
+    maketrans = ''.maketrans
+except AttributeError:
+    # fallback for Python 2
+    from string import maketrans
+
+rot_13_trans = maketrans(
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
     'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
 )
