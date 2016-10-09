@@ -2,7 +2,7 @@
 
 from setuptools import setup, find_packages
 
-f = open('README', 'r')
+f = open('README.rst', 'r')
 try:
     long_desc = f.read()
 finally:
