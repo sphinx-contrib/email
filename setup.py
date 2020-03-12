@@ -2,7 +2,7 @@
 
 from setuptools import setup, find_packages
 
-f = open('README', 'r')
+f = open('README.rst', 'r')
 try:
     long_desc = f.read()
 finally:
@@ -12,7 +12,7 @@ requires = ['Sphinx>=0.6']
 
 setup(
     name='sphinxcontrib-email',
-    version='0.1',
+    version='0.2',
     url='http://bitbucket.org/birkenfeld/sphinx-contrib',
     download_url='http://pypi.python.org/pypi/sphinxcontrib-email',
     license='BSD',
