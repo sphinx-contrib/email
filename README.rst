@@ -31,7 +31,6 @@ To obfuscate an email address use something like:
 .. code::
 
    :email:`Name Surname <user@myplace.org>`
-   :email:`Name Surname (user@myplace.org)`
 
 Renders as "Name Surname" with the appropriate mailto link.
 

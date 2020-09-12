@@ -55,21 +55,19 @@ def js_obfuscated_mailto(email, displayname=None):
 def email_role(
     typ, rawtext, text, lineno, inliner, options={}, content=[]  # noqa B006
 ):
-    """
-    Role to obfuscate e-mail addresses.
-    """
-    # Handle addresses of the form "Name <name@domain.org>"
-    if "<" in text and ">" in text:
-        name, email = text.split("<")
-        email = email.split(">")[0]
-    elif "(" in text and ")" in text:
-        name, email = text.split("(")
-        email = email.split(")")[0]
-    else:
-        name = text
-        email = name
+    """Role to obfuscate e-mail addresses.
 
-    obfuscated = js_obfuscated_mailto(email, displayname=name)
+    Handle addresses of the form
+    "name@domain.org"
+    "Name Surname <name@domain.org>"
+    """
+    pattern = r"^(?:(?P<name>.*?)\s*<)?(?P<email>\b[-.\w]+@[-.\w]+\.[a-z]{2,4}\b)>?$"
+    match = re.search(pattern, text)
+    if not match:
+        return [], []
+    data = match.groupdict()
+
+    obfuscated = js_obfuscated_mailto(email=data["email"], displayname=data["name"])
     node = nodes.raw("", obfuscated, format="html")
     return [node], []
 
