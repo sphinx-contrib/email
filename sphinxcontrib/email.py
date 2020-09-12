@@ -1,9 +1,13 @@
+from __future__ import annotations  # Compatibility for Python 3.9 type hinting
+
 import re
 import textwrap
 import xml.sax.saxutils  # nosec
 from xml.etree import ElementTree as ET  # nosec  # noqa DUO107
 
 from docutils import nodes
+from docutils.nodes import Element, Node, system_message
+from docutils.parsers.rst.states import Inliner
 
 rot_13_trans = str.maketrans(
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
@@ -11,7 +15,7 @@ rot_13_trans = str.maketrans(
 )
 
 
-def rot_13_encrypt(line):
+def rot_13_encrypt(line: str) -> str:
     """Rotate 13 encryption."""
     line = line.translate(rot_13_trans)
     line = re.sub(r"(?=[\"])", r"\\", line)
@@ -22,7 +26,7 @@ def rot_13_encrypt(line):
     return line
 
 
-def xml_to_unesc_string(node):
+def xml_to_unesc_string(node: ET.Element) -> str:
     """Return unescaped xml string"""
     text = xml.sax.saxutils.unescape(
         ET.tostring(node, encoding="unicode", method="xml"),
@@ -31,7 +35,7 @@ def xml_to_unesc_string(node):
     return text
 
 
-def js_obfuscated_text(text):
+def js_obfuscated_text(text: str) -> str:
     """ROT 13 encryption with embedded in Javascript code to decrypt in the browser."""
     xml_node = ET.Element("script")
     xml_node.attrib["type"] = "text/javascript"
@@ -52,7 +56,7 @@ def js_obfuscated_text(text):
     return xml_to_unesc_string(xml_node)
 
 
-def js_obfuscated_mailto(email, displayname=None):
+def js_obfuscated_mailto(email: str, displayname: str = None) -> str:
     """ROT 13 encryption within an Anchor tag w/ a mailto: attribute"""
     xml_node = ET.Element("a")
     xml_node.attrib["href"] = f"mailto:{email}"
@@ -62,13 +66,29 @@ def js_obfuscated_mailto(email, displayname=None):
 
 
 def email_role(
-    typ, rawtext, text, lineno, inliner, options={}, content=[]  # noqa B006
-):
+    name: str,
+    rawtext: str,
+    text: str,
+    lineno: int,
+    inliner: Inliner,
+    options: Dict = {},  # noqa B006
+    content: List[str] = [],  # noqa B006
+) -> tuple[list[Node], list[system_message]]:
     """Role to obfuscate e-mail addresses.
 
     Handle addresses of the form
     "name@domain.org"
     "Name Surname <name@domain.org>"
+
+    :name: The role name actually used in the document.
+    :rawtext: A string containing the entire interpreted text input.
+    :text: The interpreted text content.
+    :lineno: The line number where the interpreted text begins.
+    :inliner: The ``docutils.parsers.rst.states.Inliner`` object.
+    :options: A dictionary of directive options for customization (from the "role"
+              directive).
+    :content: A list of strings, the directive content for customization (from the
+              "role" directive).
     """
     pattern = r"^(?:(?P<name>.*?)\s*<)?(?P<email>\b[-.\w]+@[-.\w]+\.[a-z]{2,4}\b)>?$"
     match = re.search(pattern, text)
@@ -81,5 +101,5 @@ def email_role(
     return [node], []
 
 
-def setup(app):
+def setup(app) -> None:
     app.add_role("email", email_role)
