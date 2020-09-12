@@ -1,15 +1,9 @@
 import re
 import textwrap
+import xml.dom.minidom  # nosec  # noqa DUO107
+import xml.sax.saxutils  # nosec
 
 from docutils import nodes
-
-# The obfuscation code was adapted from
-#
-#   http://pypi.python.org/pypi/bud.nospam
-#
-# where was released by Kevin Teague <kevin at bud ca> under
-# a BSD license.
-
 
 rot_13_trans = str.maketrans(
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
@@ -28,11 +22,20 @@ def rot_13_encrypt(line):
     return line
 
 
+def extended_unescape(text):
+    """Return unescaped xml string"""
+    return xml.sax.saxutils.unescape(text, {"&apos;": "'", "&quot;": '"'})
+
+
 def js_obfuscated_text(text):
     """ROT 13 encryption with embedded in Javascript code to decrypt in the browser."""
-    snippet = textwrap.dedent(
+    xml_doc = xml.dom.minidom.Document()
+    xml_node = xml_doc.createElement("script")
+    xml_node.attributes["type"] = "text/javascript"
+
+    js_script = textwrap.dedent(
         """\
-        <script type="text/javascript">document.write(
+        document.write(
             "{text}".replace(/[a-zA-Z]/g,
                 function(c){{
                     return String.fromCharCode(
@@ -40,20 +43,24 @@ def js_obfuscated_text(text):
                     );
                 }}
             )
-        );</script>"""
-    ).format(text=rot_13_encrypt(text))
-    return snippet
+        );"""
+    )
+    xml_text_node = xml_doc.createTextNode(js_script.format(text=rot_13_encrypt(text)))
+    xml_node.appendChild(xml_text_node)
+
+    return extended_unescape(xml_node.toxml())
 
 
 def js_obfuscated_mailto(email, displayname=None):
     """ROT 13 encryption within an Anchor tag w/ a mailto: attribute"""
-    snippet = """<a href="mailto:{email}">{displayname}</a>""".format(
-        email=email, displayname=(displayname or email)
-    )
-    return js_obfuscated_text(snippet)
+    xml_doc = xml.dom.minidom.Document()
+    xml_node = xml_doc.createElement("a")
+    xml_node.attributes["href"] = f"mailto:{email}"
 
+    xml_text_node = xml_doc.createTextNode(displayname or email)
+    xml_node.appendChild(xml_text_node)
 
-# -- end bud.nospam
+    return js_obfuscated_text(extended_unescape(xml_node.toxml()))
 
 
 def email_role(

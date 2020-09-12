@@ -41,6 +41,13 @@ Renders as "Name Surname" with the appropriate mailto link.
 Renders as "user@myplace.org" with the appropriate mailto link
 
 
+Disclaimer
+----------
+
+The obfuscation code was adapted from http://pypi.python.org/pypi/bud.nospam where it
+was released by Kevin Teague <kevin at bud ca> under a BSD license.
+
+
 .. |badge:pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
    :target: https://github.com/pre-commit/pre-commit
    :alt: [pre-commit: enabled]
