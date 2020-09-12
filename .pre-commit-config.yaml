@@ -23,10 +23,17 @@ repos:
         args: [--plugin=@prettier/plugin-xml, --prose-wrap=always, --print-width=88]
         files: ""
         types: [xml]
-  # - repo: https://github.com/mgedmin/check-manifest
-  #   rev: "0.42"
-  #   hooks:
-  #     - id: check-manifest
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v1.5.0
+    hooks:
+      - id: pretty-format-ini
+        args: [--autofix]
+        types: [ini]
+        files: ""
+  - repo: https://github.com/mgedmin/check-manifest
+    rev: "0.42"
+    hooks:
+      - id: check-manifest
   - repo: https://github.com/asottile/seed-isort-config
     rev: v2.2.0
     hooks:
