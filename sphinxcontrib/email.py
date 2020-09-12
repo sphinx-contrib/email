@@ -1,7 +1,7 @@
 import re
 import textwrap
-import xml.dom.minidom  # nosec  # noqa DUO107
 import xml.sax.saxutils  # nosec
+from xml.etree import ElementTree as ET  # nosec  # noqa DUO107
 
 from docutils import nodes
 
@@ -22,17 +22,19 @@ def rot_13_encrypt(line):
     return line
 
 
-def extended_unescape(text):
+def xml_to_unesc_string(node):
     """Return unescaped xml string"""
-    return xml.sax.saxutils.unescape(text, {"&apos;": "'", "&quot;": '"'})
+    text = xml.sax.saxutils.unescape(
+        ET.tostring(node, encoding="unicode", method="xml"),
+        {"&apos;": "'", "&quot;": '"'},
+    )
+    return text
 
 
 def js_obfuscated_text(text):
     """ROT 13 encryption with embedded in Javascript code to decrypt in the browser."""
-    xml_doc = xml.dom.minidom.Document()
-    xml_node = xml_doc.createElement("script")
-    xml_node.attributes["type"] = "text/javascript"
-
+    xml_node = ET.Element("script")
+    xml_node.attrib["type"] = "text/javascript"
     js_script = textwrap.dedent(
         """\
         document.write(
@@ -45,22 +47,18 @@ def js_obfuscated_text(text):
             )
         );"""
     )
-    xml_text_node = xml_doc.createTextNode(js_script.format(text=rot_13_encrypt(text)))
-    xml_node.appendChild(xml_text_node)
+    xml_node.text = js_script.format(text=rot_13_encrypt(text))
 
-    return extended_unescape(xml_node.toxml())
+    return xml_to_unesc_string(xml_node)
 
 
 def js_obfuscated_mailto(email, displayname=None):
     """ROT 13 encryption within an Anchor tag w/ a mailto: attribute"""
-    xml_doc = xml.dom.minidom.Document()
-    xml_node = xml_doc.createElement("a")
-    xml_node.attributes["href"] = f"mailto:{email}"
+    xml_node = ET.Element("a")
+    xml_node.attrib["href"] = f"mailto:{email}"
+    xml_node.text = displayname or email
 
-    xml_text_node = xml_doc.createTextNode(displayname or email)
-    xml_node.appendChild(xml_text_node)
-
-    return js_obfuscated_text(extended_unescape(xml_node.toxml()))
+    return js_obfuscated_text(xml_to_unesc_string(xml_node))
 
 
 def email_role(
