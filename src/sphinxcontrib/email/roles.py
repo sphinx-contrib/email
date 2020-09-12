@@ -86,7 +86,3 @@ class EmailRole(SphinxRole):
         xml_node.text = displayname or email
 
         return self.js_obfuscated_text(self.xml_to_unesc_string(xml_node))
-
-
-def setup(app) -> None:
-    app.add_role("email", EmailRole())
