@@ -1,4 +1,4 @@
-from __future__ import annotations  # Compatibility for Python 3.9 type hinting
+from __future__ import annotations
 
 import re
 import textwrap
