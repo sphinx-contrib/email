@@ -27,7 +27,22 @@ Configuration
 Usage
 -----
 
-To obfuscate an email address use something like:
+Auto Mode
+^^^^^^^^^
+
+In ``conf.py``, set
+
+.. code::
+
+   email_automode = True
+
+to automatically obfuscate all ``mailto`` links.
+
+
+Manual Mode
+^^^^^^^^^^^
+
+To obfuscate an email address use the ``email`` role:
 
 .. code::
 
