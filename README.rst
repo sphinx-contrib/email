@@ -1,6 +1,7 @@
 sphinxcontrib-email
 ===================
 
+|badge:pypi-version| |badge:py-versions|
 |badge:pre-commit| |badge:black| |badge:prettier|
 
 This package provides sphinxcontrib.email, an email obfuscator for
@@ -48,6 +49,12 @@ The obfuscation code was adapted from http://pypi.python.org/pypi/bud.nospam whe
 was released by Kevin Teague <kevin at bud ca> under a BSD license.
 
 
+.. |badge:pypi-version| image:: https://img.shields.io/pypi/v/sphinxcontrib-email
+   :target: https://pypi.org/project/sphinxcontrib-email/
+   :alt: [Latest PyPI version]
+.. |badge:py-versions| image:: https://img.shields.io/pypi/pyversions/sphinxcontrib-email
+   :target: https://pypi.org/project/sphinxcontrib-email/
+   :alt: [Supported Python versions]
 .. |badge:pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
    :target: https://github.com/pre-commit/pre-commit
    :alt: [pre-commit: enabled]
