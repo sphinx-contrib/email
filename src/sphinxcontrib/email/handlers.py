@@ -18,7 +18,7 @@ def html_page_context_handler(
 
     tree = lxml.html.fragment_fromstring(context["body"])
     links = tree.iterlinks()
-    links = filter(lambda link: link[2].startswith("mailto:"), links)
+    links = filter(lambda link: link[2].startswith("mailto:"), list(links))
 
     for link in links:
         old_node = link[0]
