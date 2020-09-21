@@ -7,7 +7,7 @@ from sphinx.application import Sphinx
 from .handlers import html_page_context_handler
 from .roles import EmailRole
 
-__version__ = "0.3.2"
+__version__ = "0.3.3"
 
 
 def setup(app: Sphinx) -> dict[str, Any]:
