@@ -13,6 +13,8 @@ def html_page_context_handler(
     app: Sphinx, pagename: str, templatename: str, context: dict, doctree: bool
 ):
     """Search html for 'mailto' links and obfuscate them"""
+    if not app.config["email_automode"]:
+        return
     if not doctree:
         return
 
