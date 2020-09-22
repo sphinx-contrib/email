@@ -2,10 +2,13 @@ from __future__ import annotations
 
 from typing import Any
 
+import sphinx.util
 from sphinx.application import Sphinx
 
 from .handlers import html_page_context_handler
 from .roles import EmailRole
+
+logger = sphinx.util.logging.getLogger(__name__)
 
 __version__ = "0.3.3"
 

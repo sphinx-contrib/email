@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import re
 
+import sphinx.util
 from docutils import nodes
 from docutils.nodes import Element, Node, system_message
 from docutils.parsers.rst.states import Inliner
 from sphinx.util.docutils import SphinxRole
 
 from .utils import Obfuscator
+
+logger = sphinx.util.logging.getLogger(__name__)
 
 
 class EmailRole(SphinxRole):

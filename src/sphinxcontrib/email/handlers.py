@@ -4,9 +4,12 @@ import html
 import urllib.parse
 
 import lxml.html  # nosec  # noqa DUO107
+import sphinx.util
 from sphinx.application import Sphinx
 
 from .utils import Obfuscator
+
+logger = sphinx.util.logging.getLogger(__name__)
 
 
 def html_page_context_handler(

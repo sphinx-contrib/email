@@ -5,6 +5,10 @@ import textwrap
 import xml.sax.saxutils  # nosec
 from xml.etree import ElementTree as ET  # nosec  # noqa DUO107
 
+import sphinx.util
+
+logger = sphinx.util.logging.getLogger(__name__)
+
 
 class Obfuscator:
     def __init__(self):
