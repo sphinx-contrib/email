@@ -30,7 +30,7 @@ class Obfuscator:
     def xml_to_unesc_string(self, node: ET.Element) -> str:
         """Return unescaped xml string"""
         text = xml.sax.saxutils.unescape(
-            ET.tostring(node, encoding="unicode", method="xml"),
+            ET.tostring(node, encoding="unicode", method="html"),
             {"&apos;": "'", "&quot;": '"'},
         )
         return text
