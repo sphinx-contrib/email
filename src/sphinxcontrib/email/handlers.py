@@ -21,7 +21,7 @@ def html_page_context_handler(
     if not doctree:
         return
 
-    tree = lxml.html.fragment_fromstring(context["body"])
+    tree = lxml.html.fragment_fromstring(context["body"], create_parent="body")
     links = tree.iterlinks()
     links = filter(lambda link: link[2].startswith("mailto:"), list(links))
 
@@ -35,4 +35,9 @@ def html_page_context_handler(
         new_node.tail = tail_str
 
         old_node.getparent().replace(old_node, new_node)
-    context["body"] = lxml.html.tostring(tree, encoding="unicode")
+
+    child_strs = map(
+        lambda child: lxml.html.tostring(child, encoding="unicode"),
+        tree.iterchildren(),
+    )
+    context["body"] = "".join(child_strs)
