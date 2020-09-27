@@ -8,9 +8,17 @@ from sphinx.application import Sphinx
 from .handlers import html_page_context_handler
 from .roles import EmailRole
 
-logger = sphinx.util.logging.getLogger(__name__)
+try:
+    from importlib import metadata
+except ImportError:
+    import importlib_metadata as metadata
 
-__version__ = "0.3.3"
+try:
+    __version__ = ".".join(metadata.version("sphinxcontrib-email").split(".")[:3])
+except metadata.PackageNotFoundError:
+    pass
+
+logger = sphinx.util.logging.getLogger(__name__)
 
 
 def setup(app: Sphinx) -> dict[str, Any]:
