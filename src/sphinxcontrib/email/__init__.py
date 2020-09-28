@@ -14,7 +14,7 @@ except ImportError:
     import importlib_metadata as metadata
 
 try:
-    __version__ = ".".join(metadata.version("sphinxcontrib-email").split(".")[:3])
+    __version__ = metadata.version("sphinxcontrib-email")
 except metadata.PackageNotFoundError:
     pass
 
@@ -25,4 +25,4 @@ def setup(app: Sphinx) -> dict[str, Any]:
     app.add_config_value(name="email_automode", default=False, rebuild="env")
     app.connect("html-page-context", html_page_context_handler)
     app.add_role("email", EmailRole())
-    return {"version": __version__}
+    return {"version": ".".join(__version__.split(".")[:3])}
