@@ -34,6 +34,8 @@ Installation
 
 1. ``pip install sphinxcontrib-email``
 
+Support for python 3.6 will be dropped after its EOL on 2021-12-23.
+
 
 Configuration
 -------------

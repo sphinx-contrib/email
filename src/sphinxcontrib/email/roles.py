@@ -1,6 +1,5 @@
-from __future__ import annotations
-
 import re
+from typing import List, Tuple
 
 import sphinx.util
 from docutils import nodes
@@ -14,7 +13,7 @@ logger = sphinx.util.logging.getLogger(__name__)
 
 
 class EmailRole(SphinxRole):
-    def run(self) -> tuple[list[Node], list[system_message]]:
+    def run(self) -> Tuple[List[Node], List[system_message]]:
         """Role to obfuscate e-mail addresses.
 
         Handle addresses of the form
