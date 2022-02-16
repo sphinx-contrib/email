@@ -3,8 +3,7 @@ from typing import List, Tuple
 
 import sphinx.util
 from docutils import nodes
-from docutils.nodes import Element, Node, system_message
-from docutils.parsers.rst.states import Inliner
+from docutils.nodes import Node, system_message
 from sphinx.util.docutils import SphinxRole
 
 from .utils import Obfuscator

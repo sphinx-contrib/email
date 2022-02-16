@@ -1,5 +1,3 @@
-import html
-import urllib.parse
 from typing import Dict
 
 import lxml.html  # nosec  # noqa DUO107
