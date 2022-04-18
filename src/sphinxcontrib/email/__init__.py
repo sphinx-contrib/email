@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
-import sphinx.util
 from sphinx.application import Sphinx
+from sphinx.util import logging
 
 from .handlers import html_page_context_handler
 from .roles import EmailRole
@@ -16,7 +16,7 @@ try:
 except metadata.PackageNotFoundError:
     pass
 
-logger = sphinx.util.logging.getLogger(__name__)
+logger = logging.getLogger("sphinxcontrib-email")
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:

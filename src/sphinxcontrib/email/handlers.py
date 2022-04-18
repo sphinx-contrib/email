@@ -1,12 +1,12 @@
 from typing import Dict
 
 import lxml.html  # nosec  # noqa DUO107
-import sphinx.util
 from sphinx.application import Sphinx
+from sphinx.util import logging
 
 from .utils import Obfuscator
 
-logger = sphinx.util.logging.getLogger(__name__)
+logger = logging.getLogger(f"sphinxcontrib-email.{__name__}")
 
 
 def html_page_context_handler(

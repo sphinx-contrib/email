@@ -1,14 +1,14 @@
 import re
 from typing import List, Tuple
 
-import sphinx.util
 from docutils import nodes
 from docutils.nodes import Node, system_message
+from sphinx.util import logging
 from sphinx.util.docutils import SphinxRole
 
 from .utils import Obfuscator
 
-logger = sphinx.util.logging.getLogger(__name__)
+logger = logging.getLogger(f"sphinxcontrib-email.{__name__}")
 
 
 class EmailRole(SphinxRole):

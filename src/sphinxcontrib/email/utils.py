@@ -3,9 +3,9 @@ import textwrap
 import xml.sax.saxutils  # nosec
 from xml.etree import ElementTree as ET  # nosec  # noqa DUO107
 
-import sphinx.util
+from sphinx.util import logging
 
-logger = sphinx.util.logging.getLogger(__name__)
+logger = logging.getLogger(f"sphinxcontrib-email.{__name__}")
 
 
 class Obfuscator:
