@@ -21,6 +21,6 @@ logger = sphinx.util.logging.getLogger(__name__)
 
 def setup(app: Sphinx) -> Dict[str, Any]:
     app.add_config_value(name="email_automode", default=False, rebuild="env")
-    app.connect("html-page-context", html_page_context_handler)
-    app.add_role("email", EmailRole())
+    app.connect(event="html-page-context", callback=html_page_context_handler)
+    app.add_role(name="email", role=EmailRole())
     return {"version": ".".join(__version__.split(".")[:3])}
