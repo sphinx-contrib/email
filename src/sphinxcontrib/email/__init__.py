@@ -23,4 +23,9 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.add_config_value(name="email_automode", default=False, rebuild="env")
     app.connect(event="html-page-context", callback=html_page_context_handler)
     app.add_role(name="email", role=EmailRole())
-    return {"version": ".".join(__version__.split(".")[:3])}
+
+    metadata = {
+        "version": ".".join(__version__.split(".")[:3]),
+        "parallel_read_safe": True,
+    }
+    return metadata
