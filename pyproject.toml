@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "sphinxcontrib-email"
 version = "0.3.6"
 description = "Sphinx email obfuscation extension"
-python_requires = ">=3.7"
+requires-python = ">=3.7"
 dependencies = ["sphinx", "lxml>=4.5.2"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -51,7 +51,7 @@ packages = ["sphinxcontrib"]
 ignore-init-module-imports = true
 fix = true
 select = ["E", "F", "W", "I", "D", "RUF"]
-line-length = 88
+ignore = ["E501"]  # line too long | Black take care of it
 
 [tool.ruff.flake8-quotes]
 docstring-quotes = "double"
