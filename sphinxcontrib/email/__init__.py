@@ -1,31 +1,27 @@
+"""Provide an email obfuscator for Sphinx-based documentation."""
+
 from typing import Any, Dict
 
+from importlib_metadata import version
 from sphinx.application import Sphinx
 from sphinx.util import logging
 
 from .handlers import html_page_context_handler
-from .roles import EmailRole
+from .roles import Email
 
-try:
-    from importlib import metadata
-except ImportError:
-    import importlib_metadata as metadata
-
-try:
-    __version__ = metadata.version("sphinxcontrib-email")
-except metadata.PackageNotFoundError:
-    pass
+__version__ = version("sphinxcontrib-email")
 
 logger = logging.getLogger("sphinxcontrib-email")
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
+    """Setup email role parameters."""
     app.add_config_value(name="email_automode", default=False, rebuild="env")
     app.connect(event="html-page-context", callback=html_page_context_handler)
-    app.add_role(name="email", role=EmailRole())
+    app.add_role(name="email", role=Email())
 
-    metadata = {
-        "version": ".".join(__version__.split(".")[:3]),
+    return {
+        "version": __version__,
         "parallel_read_safe": True,
+        "parallel_write_safe": True,
     }
-    return metadata

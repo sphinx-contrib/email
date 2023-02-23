@@ -1,6 +1,8 @@
+"""Custom handlers for the email role."""
+
 from typing import Dict
 
-import lxml.html  # nosec  # noqa DUO107
+import lxml.html
 from sphinx.application import Sphinx
 from sphinx.util import logging
 
@@ -12,10 +14,8 @@ logger = logging.getLogger(f"sphinxcontrib-email.{__name__}")
 def html_page_context_handler(
     app: Sphinx, pagename: str, templatename: str, context: Dict, doctree: bool
 ):
-    """Search html for 'mailto' links and obfuscate them"""
-    if not app.config["email_automode"]:
-        return
-    if not doctree:
+    """Search html for 'mailto' links and obfuscate them."""
+    if not app.config["email_automode"] or not doctree:
         return
 
     tree = lxml.html.fragment_fromstring(context["body"], create_parent="body")
