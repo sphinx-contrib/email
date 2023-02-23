@@ -1,3 +1,5 @@
+"""Provide an email obfuscator for Sphinx-based documentation."""
+
 from typing import Any, Dict
 
 from sphinx.application import Sphinx
@@ -20,6 +22,7 @@ logger = logging.getLogger("sphinxcontrib-email")
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
+    """Setup email role parameters."""
     app.add_config_value(name="email_automode", default=False, rebuild="env")
     app.connect(event="html-page-context", callback=html_page_context_handler)
     app.add_role(name="email", role=EmailRole())

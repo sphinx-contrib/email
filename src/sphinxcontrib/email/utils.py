@@ -1,7 +1,9 @@
+"""Set of helpers to build the email role."""
+
 import re
 import textwrap
 import xml.sax.saxutils  # nosec
-from xml.etree import ElementTree as ET  # nosec  # noqa DUO107
+from xml.etree import ElementTree as ET  # nosec
 
 from sphinx.util import logging
 
@@ -9,7 +11,10 @@ logger = logging.getLogger(f"sphinxcontrib-email.{__name__}")
 
 
 class Obfuscator:
+    """Obfuscator for html output."""
+
     def __init__(self):
+        """Obfuscator for html output."""
         self.rot_13_trans = str.maketrans(
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
             "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm",
@@ -26,7 +31,7 @@ class Obfuscator:
         return line
 
     def xml_to_unesc_string(self, node: ET.Element) -> str:
-        """Return unescaped xml string"""
+        """Return unescaped xml string."""
         text = xml.sax.saxutils.unescape(
             ET.tostring(node, encoding="unicode", method="html"),
             {"&apos;": "'", "&quot;": '"'},
@@ -34,9 +39,7 @@ class Obfuscator:
         return text
 
     def js_obfuscated_text(self, text: str) -> str:
-        """ROT 13 encryption with embedded in Javascript code to decrypt in the
-        browser.
-        """
+        """ROT 13 encryption embedded in Javascript code to decrypt in the browser."""
         xml_node = ET.Element("script")
         xml_node.attrib["type"] = "text/javascript"
         js_script = textwrap.dedent(
@@ -56,7 +59,7 @@ class Obfuscator:
         return self.xml_to_unesc_string(xml_node)
 
     def js_obfuscated_mailto(self, email: str, displayname: str = None) -> str:
-        """ROT 13 encryption within an Anchor tag w/ a mailto: attribute"""
+        """ROT 13 encryption within an Anchor tag w/ a mailto: attribute."""
         xml_node = ET.Element("a")
         xml_node.attrib["class"] = "reference external"
         xml_node.attrib["href"] = f"mailto:{email}"

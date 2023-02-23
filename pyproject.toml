@@ -46,3 +46,28 @@ dev = ["nox", "pre-commit", "mypy"]
 include-package-data = false
 license-files = ["LICENSE"]
 packages = ["sphinxcontrib"]
+
+[tool.ruff]
+ignore-init-module-imports = true
+fix = true
+select = ["E", "F", "W", "I", "D", "RUF"]
+line-length = 88
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = "double"
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.per-file-ignores]
+"setup.py" = ["D100"] # nothing to see there
+
+[tool.coverage.run]
+source = ["sphinxcontrib.email"]
+
+[tool.mypy]
+scripts_are_modules = true
+ignore_missing_imports = true
+install_types = true
+non_interactive = true
+warn_redundant_casts = true

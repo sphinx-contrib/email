@@ -1,3 +1,5 @@
+"""Email role."""
+
 import re
 from typing import List, Tuple
 
@@ -12,13 +14,13 @@ logger = logging.getLogger(f"sphinxcontrib-email.{__name__}")
 
 
 class EmailRole(SphinxRole):
-    def run(self) -> Tuple[List[Node], List[system_message]]:
-        """Role to obfuscate e-mail addresses.
+    """Role to obfuscate e-mail addresses.
 
-        Handle addresses of the form
-        "name@domain.org"
-        "Name Surname <name@domain.org>"
-        """
+    Handle addresses of the form "name@domain.org" and "Name Surname <name@domain.org>"
+    """
+
+    def run(self) -> Tuple[List[Node], List[system_message]]:
+        """Setup the role in the builder context."""
         pattern = (
             r"^(?:(?P<name>.*?)\s*<)?(?P<email>\b[-.\w]+@[-.\w]+\.[a-z]{2,4}\b)>?$"
         )
