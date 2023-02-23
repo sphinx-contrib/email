@@ -7,7 +7,7 @@ name = "sphinxcontrib-email"
 version = "0.3.6"
 description = "Sphinx email obfuscation extension"
 requires-python = ">=3.7"
-dependencies = ["sphinx", "lxml>=4.5.2"]
+dependencies = ["sphinx", "lxml>=4.5.2", "importlib_metadata"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Console",

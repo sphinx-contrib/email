@@ -1,15 +1,15 @@
 """Provide an email obfuscator for Sphinx-based documentation."""
 
-from importlib import metadata
 from typing import Any, Dict
 
+from importlib_metadata import version
 from sphinx.application import Sphinx
 from sphinx.util import logging
 
 from .handlers import html_page_context_handler
 from .roles import Email
 
-__version__ = metadata.version("sphinxcontrib-email")
+__version__ = version("sphinxcontrib-email")
 
 logger = logging.getLogger("sphinxcontrib-email")
 
