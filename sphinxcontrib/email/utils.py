@@ -23,7 +23,6 @@ class Obfuscator:
     def rot_13_encrypt(self, line: str) -> str:
         """Rotate 13 encryption."""
         line = line.translate(self.rot_13_trans)
-        line = re.sub(r"(?=[\"])", r"\\", line)
         line = re.sub("\n", r"\n", line)
         line = re.sub(r"@", r"\\100", line)
         line = re.sub(r"\.", r"\\056", line)
@@ -44,16 +43,18 @@ class Obfuscator:
         xml_node.attrib["type"] = "text/javascript"
         xml_node.attrib["class"] = "obfuscated-email"
         js_script = textwrap.dedent(
-            """\
+            """
             document.write(
-                "{text}".replace(/[a-zA-Z]/g,
-                    function(c){{
-                        return String.fromCharCode(
-                            (c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26
-                        );
-                    }}
-                )
-            );"""
+              '{text}'.replace(
+                /[a-zA-Z]/g,
+                function (c) {{
+                  return String.fromCharCode(
+                    (c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26
+                  );
+                }}
+              )
+            );
+            """
         )
         xml_node.text = js_script.format(text=self.rot_13_encrypt(text))
 
