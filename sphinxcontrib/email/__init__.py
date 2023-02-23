@@ -9,6 +9,8 @@ from sphinx.util import logging
 from .handlers import html_page_context_handler
 from .roles import Email
 
+__version__ = metadata.version("sphinxcontrib-email")
+
 logger = logging.getLogger("sphinxcontrib-email")
 
 
@@ -19,7 +21,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.add_role(name="email", role=Email())
 
     return {
-        "version": metadata.version("sphinxcontrib-email"),
+        "version": __version__,
         "parallel_read_safe": True,
         "parallel_write_safe": True,
     }
