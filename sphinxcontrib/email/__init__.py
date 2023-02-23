@@ -16,7 +16,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     """Setup email role parameters."""
     app.add_config_value(name="email_automode", default=False, rebuild="env")
     app.connect(event="html-page-context", callback=html_page_context_handler)
-    app.add_role(name="email", role=Email)
+    app.add_role(name="email", role=Email())
 
     return {
         "version": metadata.version("sphinxcontrib-email"),

@@ -41,6 +41,7 @@ repository = "https://github.com/sphinx-contrib/email"
 
 [project.optional-dependencies]
 dev = ["nox", "pre-commit", "mypy"]
+test = ["pytest", "beautifulsoup4", "pytest-regressions", "pytest-cov"]
 
 [tool.setuptools]
 include-package-data = false

@@ -42,6 +42,7 @@ class Obfuscator:
         """ROT 13 encryption embedded in Javascript code to decrypt in the browser."""
         xml_node = ET.Element("script")
         xml_node.attrib["type"] = "text/javascript"
+        xml_node.attrib["class"] = "obfuscated-email"
         js_script = textwrap.dedent(
             """\
             document.write(
