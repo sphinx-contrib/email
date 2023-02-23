@@ -2,8 +2,8 @@
 
 import re
 import textwrap
-import xml.sax.saxutils  # nosec
-from xml.etree import ElementTree as ET  # nosec
+import xml.sax.saxutils
+from xml.etree import ElementTree as ET
 
 from sphinx.util import logging
 
@@ -58,7 +58,7 @@ class Obfuscator:
 
         return self.xml_to_unesc_string(xml_node)
 
-    def js_obfuscated_mailto(self, email: str, displayname: str = None) -> str:
+    def js_obfuscated_mailto(self, email: str, displayname: str = "") -> str:
         """ROT 13 encryption within an Anchor tag w/ a mailto: attribute."""
         xml_node = ET.Element("a")
         xml_node.attrib["class"] = "reference external"
