@@ -1,15 +1,48 @@
 [build-system]
-requires = [
-    "setuptools>=45",
-    "setuptools_scm[toml]>=6.2",
-    "wheel",
-]
+requires = ["setuptools>=61.2", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools_scm]
+[project]
+name = "sphinxcontrib-email"
+version = "0.3.6"
+description = "Sphinx email obfuscation extension"
+python_requires = ">=3.7"
+dependencies = ["sphinx", "lxml>=4.5.2"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Environment :: Web Environment",
+    "Framework :: Sphinx :: Extension",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Documentation :: Sphinx",
+    "Topic :: Utilities",
+]
 
-[tool.black]
-target-version = ["py38", "py39", "py310"]
+[[project.authors]]
+name = "Christian Knittl-Frank"
+email = "lcnittl@gmail.com"
 
-[tool.isort]
-profile = "black"
+[project.license]
+text = "BSD-3-Clause"
+
+[project.readme]
+file = "README.rst"
+content-type = "text/x-rst"
+
+[project.urls]
+repository = "https://github.com/sphinx-contrib/email"
+
+[project.optional-dependencies]
+dev = ["nox", "pre-commit", "mypy"]
+
+[tool.setuptools]
+include-package-data = false
+license-files = ["LICENSE"]
+packages = ["sphinxcontrib"]
