@@ -33,8 +33,8 @@ def html_page_context_handler(
 
         old_node.getparent().replace(old_node, new_node)
 
-    child_strs = map(
-        lambda child: lxml.html.tostring(child, pretty_print=True, encoding="unicode"),
-        tree.iterchildren(),
-    )
+    child_strs = [
+        lxml.html.tostring(child, pretty_print=True, encoding="unicode")
+        for child in tree.iterchildren()
+    ]
     context["body"] = "".join(child_strs)
