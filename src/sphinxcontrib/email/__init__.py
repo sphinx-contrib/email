@@ -1,4 +1,6 @@
-from typing import Any, Dict
+from __future__ import annotations
+
+from typing import Any
 
 from sphinx.application import Sphinx
 from sphinx.util import logging
@@ -19,7 +21,7 @@ except metadata.PackageNotFoundError:
 logger = logging.getLogger("sphinxcontrib-email")
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> dict[str, Any]:
     app.add_config_value(name="email_automode", default=False, rebuild="env")
     app.connect(event="html-page-context", callback=html_page_context_handler)
     app.add_role(name="email", role=EmailRole())

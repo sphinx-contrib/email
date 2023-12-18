@@ -1,4 +1,4 @@
-from typing import Dict
+from __future__ import annotations
 
 import lxml.html  # nosec  # noqa DUO107
 from sphinx.application import Sphinx
@@ -10,7 +10,7 @@ logger = logging.getLogger(f"sphinxcontrib-email.{__name__}")
 
 
 def html_page_context_handler(
-    app: Sphinx, pagename: str, templatename: str, context: Dict, doctree: bool
+    app: Sphinx, pagename: str, templatename: str, context: dict, doctree: bool
 ):
     """Search html for 'mailto' links and obfuscate them"""
     if not app.config["email_automode"]:
