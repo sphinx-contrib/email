@@ -41,8 +41,7 @@ class Obfuscator:
         """
         xml_node = ET.Element("script")
         xml_node.attrib["type"] = "text/javascript"
-        js_script = textwrap.dedent(
-            """\
+        js_script = textwrap.dedent("""\
             document.write(
                 "{text}".replace(/[a-zA-Z]/g,
                     function(c){{
@@ -51,8 +50,7 @@ class Obfuscator:
                         );
                     }}
                 )
-            );"""
-        )
+            );""")
         xml_node.text = js_script.format(text=self.rot_13_encrypt(text))
 
         return self.xml_to_unesc_string(xml_node)
